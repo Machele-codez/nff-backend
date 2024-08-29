@@ -10,16 +10,20 @@ from django.views.decorators.csrf import csrf_exempt
 def send_email(request):
     sender_email = request.POST.get('sender_email')
     sender_name = request.POST.get('sender_name')
-    content = request.POST.get('content')
+    sender_message = request.POST.get('content')
     subject = f'New Future Foundation: New email from {
         sender_name}'  # the subject
     admin_email = settings.ADMIN_EMAIL  # the one receiving the email
+
+    email_message = f"You have received a new message from {
+        sender_name} ({sender_email}).\nMessage: {sender_message}"
 
     message = Mail(
         from_email='no-reply@newfuturefoundation.org',  # mine
         to_emails=admin_email,  # the admin's email comes
         subject=subject,
-        html_content=content)
+        plain_text_content=email_message
+    )
     message.reply_to = sender_email  # the guy who is accessing the website
     try:
         sg = SendGridAPIClient(settings.SENDGRID_API_KEY)

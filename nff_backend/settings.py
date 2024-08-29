@@ -26,8 +26,15 @@ SECRET_KEY = config('SECRET_KEY',)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG_STATUS', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'api.newfuturefoundation.org'
+]
 
+if DEBUG:
+    ALLOWED_HOSTS += [
+        '127.0.0.1',
+        'Localhost'
+    ]
 
 # Application definition
 
@@ -126,3 +133,52 @@ STATIC_ROOT = BASE_DIR / "static"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SENDGRID_API_KEY = config('SENDGRID_API_KEY')
 ADMIN_EMAIL = config('ADMIN_EMAIL')
+
+# CORS Configuration
+
+CORS_ALLOWED_ORIGINS = [
+    'https://new-future-foundation.vercel.app',
+    'https://www.newfuturefoundation.org',
+    'https://newfuturefoundation.org',
+]
+if DEBUG:
+    CORS_ALLOWED_ORIGINS += ['http://localhost:5173']
+
+
+# settings.py
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        # 'file': {
+        #     'level': 'INFO',
+        #     'class': 'logging.FileHandler',
+        #     'filename': os.path.join(BASE_DIR, 'debug.log'),
+        #     'formatter': 'verbose',
+        # },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
