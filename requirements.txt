@@ -1,0 +1,9 @@
+asgiref==3.8.1
+Django==5.1
+python-decouple==3.8
+python-http-client==3.3.7
+sendgrid==6.11.0
+setuptools==72.1.0
+sqlparse==0.5.1
+starkbank-ecdsa==2.2.0
+wheel==0.43.0
