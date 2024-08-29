@@ -19,6 +19,6 @@ from django.urls import path, include
 from core.views import send_email
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('send-email/', send_email, name="send-email"),
 ]
